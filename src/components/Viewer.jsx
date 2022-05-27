@@ -7,15 +7,14 @@ const AV = Autodesk.Viewing;
 
 const Viewer = (props) => {
   const [urn, setUrn] = useState(
-  //   // 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwX2dlbmVyYWwvJUU1JThGJUIwJUU1JThDJTk3JUU4JUJCJThBJUU3JUFCJTk5JUU4JUJFJUE4JUU1JTg1JUFDJUU1JUFFJUE0LnJ2dA'
-  //   'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwLW1haW4tb2ZmaWNlLyVFNSU4RiVCMCVFNSU4QyU5NyVFOCVCQiU4QSVFNyVBQiU5OSVFOCVCRSVBOCVFNSU4NSVBQyVFNSVBRSVBNC5ydnQ=' //main station
-    // 'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLkxvdXhtNzk0U3dDWGhrcXB1MEZKRVE_dmVyc2lvbj0xMTE' // huanan 111
-    'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwX2dlbmVyYWwvJUU1JThGJUIwJUU1JThDJTk3JUU4JUJCJThBJUU3JUFCJTk5JUU4JUJFJUE4JUU1JTg1JUFDJUU1JUFFJUE0LnJ2dA=='
+    //   // 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwX2dlbmVyYWwvJUU1JThGJUIwJUU1JThDJTk3JUU4JUJCJThBJUU3JUFCJTk5JUU4JUJFJUE4JUU1JTg1JUFDJUU1JUFFJUE0LnJ2dA'
+    //   'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwLW1haW4tb2ZmaWNlLyVFNSU4RiVCMCVFNSU4QyU5NyVFOCVCQiU4QSVFNyVBQiU5OSVFOCVCRSVBOCVFNSU4NSVBQyVFNSVBRSVBNC5ydnQ=' //main station
+    'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLkxvdXhtNzk0U3dDWGhrcXB1MEZKRVE_dmVyc2lvbj0xMTE' // huanan 111
+    // 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwX2dlbmVyYWwvJUU1JThGJUIwJUU1JThDJTk3JUU4JUJCJThBJUU3JUFCJTk5JUU4JUJFJUE4JUU1JTg1JUFDJUU1JUFFJUE0LnJ2dA=='
   );
-//   const { urn } = useContext(UrnContext);
+  //   const { urn } = useContext(UrnContext);
   const [accessToken, setAccessToken] = useState(null);
   useEffect(() => {
-
     const getNewToken = async () => {
       const newToken = await axios.get(`${SERVER_URL}/api/forge/getToken`);
       console.log(newToken.data.access_token);
@@ -51,7 +50,13 @@ const Viewer = (props) => {
 
       viewerRef.current = viewer;
 
-      const startedCode = viewer.start(undefined, undefined, undefined, undefined, viewerOptions);
+      const startedCode = viewer.start(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        viewerOptions
+      );
       if (startedCode > 0) {
         console.error('Failed to create a Viewer: WebGL not supported.');
         return;
@@ -90,7 +95,11 @@ const Viewer = (props) => {
     };
 
     if (documentId) {
-      AV.Document.load(`urn:${documentId}`, onDocumentLoadSuccess, onDocumentLoadFailure);
+      AV.Document.load(
+        `urn:${documentId}`,
+        onDocumentLoadSuccess,
+        onDocumentLoadFailure
+      );
     }
   };
 
