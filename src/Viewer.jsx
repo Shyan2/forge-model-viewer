@@ -6,18 +6,15 @@ const SERVER_URL = process.env.REACT_APP_API_ROUTE;
 const AV = Autodesk.Viewing;
 
 const Viewer = (props) => {
-  const [urn, setUrn] = useState(
-    //   // 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwX2dlbmVyYWwvJUU1JThGJUIwJUU1JThDJTk3JUU4JUJCJThBJUU3JUFCJTk5JUU4JUJFJUE4JUU1JTg1JUFDJUU1JUFFJUE0LnJ2dA'
-    //   'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwLW1haW4tb2ZmaWNlLyVFNSU4RiVCMCVFNSU4QyU5NyVFOCVCQiU4QSVFNyVBQiU5OSVFOCVCRSVBOCVFNSU4NSVBQyVFNSVBRSVBNC5ydnQ=' //main station
-    'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLkxvdXhtNzk0U3dDWGhrcXB1MEZKRVE_dmVyc2lvbj0xMTE' // huanan 111
-    // 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwX2dlbmVyYWwvJUU1JThGJUIwJUU1JThDJTk3JUU4JUJCJThBJUU3JUFCJTk5JUU4JUJFJUE4JUU1JTg1JUFDJUU1JUFFJUE0LnJ2dA=='
+  const [urn] = useState(
+    'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6d3NwX2dlbmVyYWwvJUU1JThGJUIwJUU1JThDJTk3JUU4JUJCJThBJUU3JUFCJTk5JUU4JUJFJUE4JUU1JTg1JUFDJUU1JUFFJUE0LnJ2dA=='
   );
-  //   const { urn } = useContext(UrnContext);
+
   const [accessToken, setAccessToken] = useState(null);
+
   useEffect(() => {
     const getNewToken = async () => {
       const newToken = await axios.get(`${SERVER_URL}/api/forge/getToken`);
-      console.log(newToken.data.access_token);
       setAccessToken(newToken.data.access_token);
     };
     getNewToken();
@@ -79,8 +76,6 @@ const Viewer = (props) => {
     viewer.impl.glrenderer().setClearColor(0xffffff, 0);
     viewer.impl.invalidate(true);
     const onDocumentLoadSuccess = (viewerDocument) => {
-      // viewerDocument is an instance of Autodesk.Viewing.Document
-      // const defaultModel = viewerDocument.getRoot().getDefaultGeometry(true); // does not load links
       const defaultModel = viewerDocument.getRoot().getDefaultGeometry();
       viewer.loadDocumentNode(viewerDocument, defaultModel, {
         keepCurrentModels: true,

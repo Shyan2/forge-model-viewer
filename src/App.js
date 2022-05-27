@@ -1,5 +1,5 @@
 import './App.css';
-import Viewer from './components/Viewer.jsx'
+import Viewer from './Viewer.jsx';
 function App() {
   return (
     <div>
